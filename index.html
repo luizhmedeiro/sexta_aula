@@ -11,12 +11,8 @@
 <body ng-controller="MeuController">
 	<div class="container">
 		<h1>AngularJS</h1>
-		<form ng-submit="enviaDados(pessoa)">
+		<form ng-submit="enviarDados(pessoa)">
 			<div class="form-group">
-				<div class="form-group">
-	    			<label>Id</label>
-	    			<input ng-model = "pessoa.id" type="number" class="form-control" placeholder="Código">
-	  			</div>
 				<div class="form-group">
 	    			<label>Nome</label>
 	    			<input required minlength="3" ng-model = "pessoa.nome" type="text" class="form-control" placeholder="Nome">
@@ -29,7 +25,8 @@
 	    			<label>Telefone</label>
 	    			<input required minlength="8" ng-model="pessoa.telefone" type="text" class="form-control" placeholder="Telefone">
 	  			</div>
-	  			<button type="submit" class="btn btn-success pull-right">Enviar</button>
+	  			<button type="submit" class="btn btn-success pull-right">{{isEdit ? 'Atualizar' :'Editar'}}</button>
+	  			
 				<div class="clearfix"></div>	  			
 			</div>
 		</form>
@@ -39,18 +36,22 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>#</th>
+					<th>ID TEMP</th>
 					<th>Nome</th>
 					<th>E-mail</th>
 					<th>Telefone</th>
+					<th>Opções</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in dados">
-					<td>{{item.id}}</td>
+					<td>{{$index}}</td>
 					<td>{{item.nome}}</td>
 					<td>{{item.email}}</td>
 					<td>{{item.telefone}}</td>
+					<td><button ng-click="editarItem(item, $index)" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></button> / 
+						<button ng-click="excluirItem($index)" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+					</td>
 				</tr>
 			</tbody>			
 		</table>
